@@ -19,14 +19,21 @@ info:
     description: Catalog Service for Movies Application
     version: 1.0.0
 
+#Configuracion de  actuator
 management:
   endpoints:
     web:
       exposure:
-        include: info, health
+        include: circuitbreakers, circuitbreakerevents, health, info
   info:
     env:
       enabled: true
+  health:
+    circuitbreakers:
+      enabled: true
+  endpoint:
+    health:
+      show-details: always
 
 eureka:
   instance:
@@ -37,3 +44,25 @@ eureka:
     fetchRegistry: true
     serviceUrl:
       defaultZone: http://localhost:8761/eureka/
+
+
+#Configuracion del circuit breaker
+resilience4j:
+  circuitbreaker:
+    instances:
+      movie:
+        allowHealthIndicatorToFail: false
+        registerHealthIndicator: true
+        slidingWindowType: COUNT_BASED
+        slidingWindowSize: 5
+        failureRateThreshold: 50
+        waitDurationInOpenState: 15000
+        permittedNumberOfCallsInHalfOpenState: 3
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+#Configuracion del mecanismo de reintentos.
+  retry:
+    instances:
+      movie:
+        maxAttempts: 3
+        waitDuration: 1000
+        retryExceptions[0]: feign.FeignException$InternalServerError
