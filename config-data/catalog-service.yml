@@ -65,5 +65,6 @@ resilience4j:
       movie:
         maxAttempts: 3
         waitDuration: 1s
-        # retryExceptions: 
-        #   - feign.FeignException$InternalServerError
+        retryExceptions: 
+          - feign.FeignException$InternalServerError
+          - feign.FeignException$ServiceUnavailable
