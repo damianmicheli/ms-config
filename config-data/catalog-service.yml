@@ -56,7 +56,7 @@ resilience4j:
         slidingWindowType: COUNT_BASED
         slidingWindowSize: 5
         failureRateThreshold: 50
-        waitDurationInOpenState: 15000
+        waitDurationInOpenState: 15s
         permittedNumberOfCallsInHalfOpenState: 3
         automaticTransitionFromOpenToHalfOpenEnabled: true
 #Configuracion del mecanismo de reintentos.
@@ -64,6 +64,6 @@ resilience4j:
     instances:
       movie:
         maxAttempts: 3
-        waitDuration: 1000
-        retryExceptions: 
-          - feign.FeignException$InternalServerError
+        waitDuration: 1s
+        # retryExceptions: 
+        #   - feign.FeignException$InternalServerError
