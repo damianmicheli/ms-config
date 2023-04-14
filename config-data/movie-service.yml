@@ -17,6 +17,9 @@ spring:
       hibernate:
         hbm2ddl:
           import_files: movie-service.sql
+  zipkin:
+    base-url: http://localhost:9411/
+    enabled: true
 
 info:
   application:
