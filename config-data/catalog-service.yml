@@ -58,7 +58,7 @@ eureka:
 resilience4j:
   circuitbreaker:
     instances:
-      movie:
+      catalog:
         allowHealthIndicatorToFail: false
         registerHealthIndicator: true
         slidingWindowType: COUNT_BASED
@@ -70,7 +70,7 @@ resilience4j:
 #Configuracion del mecanismo de reintentos.
   retry:
     instances:
-      movie:
+      catalog:
         maxAttempts: 3
         waitDuration: 1s
         retryExceptions: 
